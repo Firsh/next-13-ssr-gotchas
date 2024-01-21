@@ -2,14 +2,15 @@
 import React from 'react';
 
 function Counter() {
-  const [count, setCount] = React.useState(() => {
-    return Number(
-      typeof window !== "undefined" && window.localStorage.getItem('saved-count') || 0
-    );
-  });
-
+  const [count, setCount] = React.useState(0);
   React.useEffect(() => {
-    typeof window !== "undefined" && window.localStorage.setItem('saved-count', count);
+    setCount(
+      Number(
+        window.localStorage.getItem('saved-count') || 0
+      ));
+  }, []);
+  React.useEffect(() => {
+    window.localStorage.setItem('saved-count', count);
   }, [count]);
 
   return (
